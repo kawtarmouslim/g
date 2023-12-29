@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.thymeleaf.org/extras/spring">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management Application</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+        <div>
+            <a href="https://www.javaguides.net" class="navbar-brand">User Management App</a>
+        </div>
+
+        <ul class="navbar-nav">
+            <li><a th:href="@{${#httpServletRequest.getContextPath()}/list}" class="nav-link">Products</a></li>
+        </ul>
+    </nav>
+</header>
+<br>
+<div class="container col-md-5">
+    <div class="card">
+        <div class="card-body">
+            <form th:action="${product != null} ? @{update} : @{insert}" method="post">
+
+                <caption>
+                    <h2 th:text="${product != null} ? 'Edit User' : 'Add New Product'"></h2>
+                </caption>
+
+                <input type="hidden" th:if="${product != null}" name="id" th:value="${product.id}" />
+
+                <fieldset class="form-group">
+                    <label>designation</label> <input type="text" th:value="${product != null} ? ${product.designation} : ''" class="form-control" name="designation" required="required">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>prix</label> <input type="text" th:value="${product != null} ? ${product.prix} : ''" class="form-control" name="prix">
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label>quantite</label> <input type="text" th:value="${product != null} ? ${product.quantite} : ''" class="form-control" name="quantite">
+                </fieldset>
+
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
